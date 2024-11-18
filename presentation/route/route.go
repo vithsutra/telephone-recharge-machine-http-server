@@ -4,6 +4,7 @@ import (
 	"github.com/Magowtham/telephone_recharge_machine_http_server/domain/repository"
 	"github.com/Magowtham/telephone_recharge_machine_http_server/presentation/handler/admin"
 	"github.com/Magowtham/telephone_recharge_machine_http_server/presentation/handler/user"
+	"github.com/Magowtham/telephone_recharge_machine_http_server/presentation/middleware"
 	"github.com/gorilla/mux"
 )
 
@@ -17,6 +18,8 @@ func Router(dbRepo repository.DataBaseRepository) *mux.Router {
 	loginRouter := router.PathPrefix("/login").Subrouter()
 	adminRouter := router.PathPrefix("/admin").Subrouter()
 	userRouter := router.PathPrefix("/user").Subrouter()
+
+	router.Use(middleware.CorsMiddleWare)
 
 	rootRouter.HandleFunc("/database/init", adminHandler.DataBaseInitializeHandler).Methods("GET")
 	rootRouter.HandleFunc("/create/admin", adminHandler.CreateAdminHandler).Methods("POST")
