@@ -17,7 +17,7 @@ WORKDIR /app
 COPY --from=build /app/bin/main .
 
 ENV SERVER_ADDRESS="0.0.0.0:8080"
-ENV DATABASE_URL="postgresql://vsense:GmTaf9S8uVo6FERprSKBZpDZNpYLtkJG@dpg-csqo6i5umphs73d5fllg-a.singapore-postgres.render.com/telephone"
+ENV DATABASE_URL="postgresql://vsync:q7u1I6gsoPHT1UyViPAgJ4fFeatjyRlF@dpg-ctn3npi3esus739tte40-a.oregon-postgres.render.com/telephone_hqtb"
 ENV SECRETE_KEY="vsense"
 
 
