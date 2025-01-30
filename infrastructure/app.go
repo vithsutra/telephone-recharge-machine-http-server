@@ -27,6 +27,14 @@ func Run() {
 
 	postgresRepository := repository.NewPostgresRepository(databaseConn)
 
+	//initializing the database
+
+	if err := postgresRepository.Init(); err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Println("database initialized successfully")
+
 	router := route.Router(postgresRepository)
 
 	log.Printf("server is running on %s\n", serverAddress)

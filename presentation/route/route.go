@@ -21,7 +21,6 @@ func Router(dbRepo repository.DataBaseRepository) *mux.Router {
 
 	router.Use(middleware.CorsMiddleWare)
 
-	rootRouter.HandleFunc("/database/init", adminHandler.DataBaseInitializeHandler).Methods("GET")
 	rootRouter.HandleFunc("/create/admin", adminHandler.CreateAdminHandler).Methods("POST")
 	rootRouter.HandleFunc("/delete/admin/{adminId}", adminHandler.DeleteAdminHandler).Methods("GET")
 

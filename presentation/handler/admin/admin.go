@@ -22,26 +22,6 @@ func NewHandler(dbRepo repository.DataBaseRepository) *Handler {
 	}
 }
 
-func (h *Handler) DataBaseInitializeHandler(w http.ResponseWriter, r *http.Request) {
-	dataBaseInitUseCase := admin.NewDatabaseInitUseCase(h.dbRepo)
-
-	if err, _ := dataBaseInitUseCase.Execute(); err != nil {
-		responseMessage := &response.StatusMessage{
-			Message: err.Error(),
-		}
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(responseMessage)
-		return
-	}
-
-	responseMessage := &response.StatusMessage{
-		Message: "database initialized successfully",
-	}
-
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(responseMessage)
-}
-
 func (h *Handler) CreateAdminHandler(w http.ResponseWriter, r *http.Request) {
 	var request request.CreateAdminRequest
 
