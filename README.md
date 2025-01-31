@@ -1,32 +1,6 @@
 # TELEPHONE RECHARGE MACHINE HTTP SERVER API
 
-## 1. Database Initialization Process
-
-```bash
-https://telephone.http.vsensetech.in/root/database/init
-```
-
-### HTTP Method → GET
-
-### HTTP Responses
-
-json message with http status
-
-json message format
-
-```json
-{"message":"__server_status_message__"}
-```
-
-HTTP status codes
-
-400 → Bad Request (User side error)
-
-500 → Internal server error (Server side error)
-
-200 → ok (Operation successful without any error)
-
-## 2. Creating Admin Account
+## 1. Creating Admin Account
 
 ```bash
 https://telephone.http.vsensetech.in/root/create/admin
@@ -43,7 +17,7 @@ HTTP Request format
 }
 ```
 
-## 3. Admin Login
+## 2. Admin Login
 
 ```bash
 https://telephone.http.vsensetech.in/login/admin
@@ -68,7 +42,7 @@ HTTP Response format
 }
 ```
 
-## 4. Delete Admin Account
+## 3. Delete Admin Account
 
 ```bash
 https://telephone.http.vsensetech.in/root/delete/admin/__ADMIN_ID__
@@ -76,7 +50,7 @@ https://telephone.http.vsensetech.in/root/delete/admin/__ADMIN_ID__
 
 ### HTTP Method → GET
 
-## 5. Create User Account
+## 4. Create User Account
 
 ```bash
 https://telephone.http.vsensetech.in/admin/create/user
@@ -93,7 +67,7 @@ HTTP Request format
 }
 ```
 
-## 6. Delete User Account
+## 5. Delete User Account
 
 ```bash
 https://telephone.http.vsensetech.in/admin/delete/user/__USER_ID__
@@ -101,7 +75,7 @@ https://telephone.http.vsensetech.in/admin/delete/user/__USER_ID__
 
 ### HTTP Method → GET
 
-## 7. Create Machine
+## 6. Create Machine
 
 ```bash
 https://telephone.http.vsensetech.in/admin/create/machine/__ADMIN_ID__
@@ -118,7 +92,7 @@ HTTP Request format
 }
 ```
 
-## 8. Get Machines
+## 7. Get Machines
 
 ```bash
 https://telephone.http.vsensetech.in/admin/machines/__ADMIN_ID__
@@ -141,7 +115,7 @@ HTTP Response format
 }
 ```
 
-## 9. Delete Machine
+## 8. Delete Machine
 
 ```bash
 https://telephone.http.vsensetech.in/admin/delete/machine/__MACHINE_ID__
@@ -149,7 +123,7 @@ https://telephone.http.vsensetech.in/admin/delete/machine/__MACHINE_ID__
 
 ### HTTP Method → GET
 
-## 10. Recharge Machine
+## 9. Recharge Machine
 
 ```bash
 https://telephone.http.vsensetech.in/admin/recharge/machine/__MACHINE_ID__
@@ -165,7 +139,7 @@ HTTP Request format
 }
 ```
 
-## 11. Get Recharge Machine History
+## 10. Get Recharge Machine History
 
 ```bash
 https://telephone.http.vsensetech.in/admin/recharge/history/__MACHINE_ID__
@@ -194,7 +168,7 @@ HTTP Response format
 }
 ```
 
-## 12. User Login
+## 11. User Login
 
 ```bash
 https://telephone.http.vsensetech.in/login/user
@@ -219,7 +193,7 @@ HTTP Response format
 }
 ```
 
-## 13. Get Machine Balance
+## 12. Get Machine Balance
 
 ```bash
 https://telephone.http.vsensetech.in/user/machine/balance/__MACHINE_ID__
@@ -235,7 +209,7 @@ HTTP Response format
 }
 ```
 
-## 14. Deduct Machine Balance
+## 13. Deduct Machine Balance
 
 ```bash
 https://telephone.http.vsensetech.in/user/deduct/machine/balance/__MACHINE_ID__
@@ -251,7 +225,7 @@ HTTP Request format
 }
 ```
 
-## 15. Get Expense History [User]
+## 14. Get Expense History [User]
 
 ```bash
 https://telephone.http.vsensetech.in/user/expense/history/__MACHINE_ID__
@@ -278,7 +252,7 @@ HTTP Response format
 }
 ```
 
-## 16. Get Expense History [Admin]
+## 15. Get Expense History [Admin]
 
 ```bash
 https://telephone.http.vsensetech.in/admin/expense/history/__MACHINE_ID__
