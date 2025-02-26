@@ -257,7 +257,7 @@ func (repo *PostgresRepository) GetMachineIdsByAdminId(adminId string) ([]string
 
 func (repo *PostgresRepository) RechargeMachine(machineId string, amount int32) error {
 	query1 := `UPDATE machines SET balance = balance + $2 WHERE machine_id = $1`
-	query2 := `INSERT INTO recharge_history (machine_id,amounrt) VALUES ($1,$2)`
+	query2 := `INSERT INTO recharge_history (machine_id,amount) VALUES ($1,$2)`
 
 	tx, err := repo.database.Begin()
 
