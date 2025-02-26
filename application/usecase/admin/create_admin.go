@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Magowtham/telephone_recharge_machine_http_server/application/validation"
+	"github.com/Magowtham/telephone_recharge_machine_http_server/application/usecase/utils"
 	"github.com/Magowtham/telephone_recharge_machine_http_server/domain/entity"
 	"github.com/Magowtham/telephone_recharge_machine_http_server/domain/repository"
 	"github.com/Magowtham/telephone_recharge_machine_http_server/domain/service"
@@ -33,7 +33,7 @@ func (u *CreateAdminUseCase) Execute(request *request.CreateAdminRequest) (error
 		return fmt.Errorf("password cannot be empty"), 1
 	}
 
-	if err := validation.ValidatePassword(request.Password); err != nil {
+	if err := utils.ValidatePassword(request.Password); err != nil {
 		return err, 1
 	}
 

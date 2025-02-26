@@ -6,8 +6,11 @@ type CreateAdminRequest struct {
 }
 
 type CreateUserRequest struct {
-	UserName string `json:"user_name"`
-	Password string `json:"password"`
+	AdminId   string `json:"admin_id"`
+	MachineId string `json:"machine_id"`
+	UserName  string `json:"user_name"`
+	Password  string `json:"password"`
+	Email     string `json:"email"`
 }
 
 type AdminLoginRequest struct {

@@ -40,6 +40,17 @@ func (u *DeductMachineBalanceUseCase) Execute(machineId string, request *request
 		return fmt.Errorf("machine id not exists"), 1
 	}
 
+	balance, err := u.dbService.GetMachineBalance(machineId)
+
+	if err != nil {
+		log.Println(err)
+		return fmt.Errorf("error occured with database"), 2
+	}
+
+	if balance < request.Amount {
+		return fmt.Errorf("insufficient funds"), 1
+	}
+
 	if err := u.dbService.DeductMachineBalance(machineId, request.Amount); err != nil {
 		log.Printf("error occurred with database while deducting the machine balance, deduct machine balance, Error -> %v\n", err.Error())
 		return fmt.Errorf("error occurred with database"), 2

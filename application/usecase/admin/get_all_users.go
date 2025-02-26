@@ -20,8 +20,18 @@ func NewGetAllUsersUseCase(dbRepo repository.DataBaseRepository) *GetAllUsersUse
 	}
 }
 
-func (u *GetAllUsersUseCase) Execute() (error, int, []*entity.User) {
-	users, err := u.dbService.GetAllUsers()
+func (u *GetAllUsersUseCase) Execute(adminId string) (error, int, []*entity.User) {
+	isAdminIdExists, err := u.dbService.CheckAdminIdExists(adminId)
+	if err != nil {
+		log.Println(err)
+		return fmt.Errorf("error occurred with database"), 2, nil
+	}
+
+	if !isAdminIdExists {
+		return fmt.Errorf("admin id not exists"), 1, nil
+	}
+
+	users, err := u.dbService.GetAllUsers(adminId)
 	if err != nil {
 		log.Printf("error occurred with database while getting all the users, get all users, Error -> %v\n", err.Error())
 		return fmt.Errorf("error occurred with database"), 2, nil

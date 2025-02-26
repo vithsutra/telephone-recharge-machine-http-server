@@ -23,19 +23,25 @@ func (repo *PostgresRepository) Init() error {
 				password VARCHAR(255) NOT NULL,
 				created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 			)`
-	query2 := `CREATE TABLE IF NOT EXISTS users(
-				user_id VARCHAR(255) PRIMARY KEY,
-				user_name VARCHAR(255) NOT NULL UNIQUE,
-				password VARCHAR(255) NOT NULL,
-				created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-			)`
-	query3 := `CREATE TABLE IF NOT EXISTS machines(
+
+	query2 := `CREATE TABLE IF NOT EXISTS machines(
 				machine_id VARCHAR(255) PRIMARY KEY,
 				admin_id VARCHAR(255) NOT NULL,
 				label VARCHAR(255) NOT NULL,
 				balance INTEGER NOT NULL,
 				update_timestamp VARCHAR(255) NOT NULL,
 				created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+				FOREIGN KEY (admin_id) REFERENCES admins(admin_id) ON DELETE CASCADE
+			)`
+	query3 := `CREATE TABLE IF NOT EXISTS users(
+				user_id VARCHAR(255) PRIMARY KEY,
+				admin_id VARCHAR(255) NOT NULL,
+				machine_id VARCHAR(255) NOT NULL,
+				email VARCHAR(255) NOT NULL UNIQUE, 
+				user_name VARCHAR(255) NOT NULL UNIQUE,
+				password VARCHAR(255) NOT NULL,
+				created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+				FOREIGN KEY (machine_id) REFERENCES machines(machine_id) ON DELETE CASCADE,
 				FOREIGN KEY (admin_id) REFERENCES admins(admin_id) ON DELETE CASCADE
 			)`
 
@@ -128,8 +134,8 @@ func (repo *PostgresRepository) CheckUserNameExists(userName string) (bool, erro
 }
 
 func (repo *PostgresRepository) CreateUser(user *entity.User) error {
-	query := `INSERT INTO users (user_id,user_name,password) VALUES ($1,$2,$3)`
-	_, err := repo.database.Exec(query, user.UserId, user.UserName, user.Password)
+	query := `INSERT INTO users (user_id,admin_id,machine_id,email,user_name,password) VALUES ($1,$2,$3,$4,$5,$6)`
+	_, err := repo.database.Exec(query, user.UserId, user.AdminId, user.MachineId, user.Email, user.UserName, user.Password)
 	return err
 }
 
@@ -146,18 +152,21 @@ func (repo *PostgresRepository) DeleteUser(userId string) error {
 	return err
 }
 
-func (repo *PostgresRepository) GetAllUsers() ([]*entity.User, error) {
-	query := `SELECT user_id,user_name FROM users;`
-	rows, err := repo.database.Query(query)
+func (repo *PostgresRepository) GetAllUsers(adminId string) ([]*entity.User, error) {
+	query := `SELECT user_id,machine_id,email,user_name FROM users WHERE admin_id=$1`
+	rows, err := repo.database.Query(query, adminId)
+
 	if err != nil {
 		return nil, err
 	}
+
+	defer rows.Close()
 
 	var users []*entity.User
 
 	for rows.Next() {
 		var user entity.User
-		if err := rows.Scan(&user.UserId, &user.UserName); err != nil {
+		if err := rows.Scan(&user.UserId, &user.MachineId, &user.Email, &user.UserName); err != nil {
 			return nil, err
 		}
 
@@ -169,8 +178,8 @@ func (repo *PostgresRepository) GetAllUsers() ([]*entity.User, error) {
 
 func (repo *PostgresRepository) GetUserByUserName(userName string) (*entity.User, error) {
 	var user entity.User
-	query := `SELECT user_id,user_name,password FROM users WHERE user_name = $1`
-	err := repo.database.QueryRow(query, userName).Scan(&user.UserId, &user.UserName, &user.Password)
+	query := `SELECT user_id,machine_id,user_name,password FROM users WHERE user_name = $1`
+	err := repo.database.QueryRow(query, userName).Scan(&user.UserId, &user.MachineId, &user.UserName, &user.Password)
 	return &user, err
 }
 
@@ -206,6 +215,8 @@ func (repo *PostgresRepository) GetMachinesByAdminId(adminId string) ([]*entity.
 		return nil, err
 	}
 
+	defer rows.Close()
+
 	for rows.Next() {
 		var machine entity.Machine
 
@@ -219,9 +230,34 @@ func (repo *PostgresRepository) GetMachinesByAdminId(adminId string) ([]*entity.
 	return machines, nil
 }
 
+func (repo *PostgresRepository) GetMachineIdsByAdminId(adminId string) ([]string, error) {
+	query := `SELECT machine_id FROM machines WHERE admin_id=$1`
+
+	rows, err := repo.database.Query(query, adminId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	var machineIds []string
+
+	for rows.Next() {
+		var machineId string
+		if err := rows.Scan(&machineId); err != nil {
+			return machineIds, nil
+		}
+
+		machineIds = append(machineIds, machineId)
+	}
+
+	return machineIds, nil
+}
+
 func (repo *PostgresRepository) RechargeMachine(machineId string, amount int32) error {
 	query1 := `UPDATE machines SET balance = balance + $2 WHERE machine_id = $1`
-	query2 := `INSERT INTO recharge_history (machine_id,amount) VALUES ($1,$2)`
+	query2 := `INSERT INTO recharge_history (machine_id,amounrt) VALUES ($1,$2)`
 
 	tx, err := repo.database.Begin()
 
@@ -262,6 +298,8 @@ func (repo *PostgresRepository) GetRechargeHistoryByMachineId(machineId string) 
 	if err != nil {
 		return nil, err
 	}
+
+	defer rows.Close()
 
 	for rows.Next() {
 		var rechargeHistory entity.RechargeHistory
@@ -314,6 +352,8 @@ func (repo *PostgresRepository) GetExpenseHistoryByMachineId(machineId string) (
 	if err != nil {
 		return nil, err
 	}
+
+	defer rows.Close()
 
 	for rows.Next() {
 		var expenseHistory entity.ExpenseHistory

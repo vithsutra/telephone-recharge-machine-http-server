@@ -18,6 +18,10 @@ type Machines struct {
 	Machines []*entity.Machine `json:"machines"`
 }
 
+type MachineIds struct {
+	MachineIds []string `json:"machine_ids"`
+}
+
 type RechargeHistory struct {
 	RechargeHistory []*entity.RechargeHistory `json:"recharge_history"`
 }

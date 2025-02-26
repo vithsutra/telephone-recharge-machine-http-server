@@ -169,9 +169,12 @@ func (h *Handler) DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) GetAllUsersHandler(w http.ResponseWriter, r *http.Request) {
+
+	adminId := mux.Vars(r)["adminId"]
+
 	getAllUsersUseCase := admin.NewGetAllUsersUseCase(h.dbRepo)
 
-	err, errStatus, users := getAllUsersUseCase.Execute()
+	err, errStatus, users := getAllUsersUseCase.Execute(adminId)
 
 	if err != nil {
 		response := &response.StatusMessage{
@@ -353,6 +356,38 @@ func (h *Handler) DeleteMachineHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
+}
+
+func (h *Handler) GetMachineIdsHandler(w http.ResponseWriter, r *http.Request) {
+	adminId := mux.Vars(r)["adminId"]
+
+	getAllMachineIdsUseCase := admin.NewGetAllMachineIdsUseCase(h.dbRepo)
+
+	err, errStatus, machineIds := getAllMachineIdsUseCase.Execute(adminId)
+
+	if err != nil {
+		response := &response.StatusMessage{
+			Message: err.Error(),
+		}
+
+		if errStatus == 1 {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(response)
+			return
+		}
+
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	response := &response.MachineIds{
+		MachineIds: machineIds,
+	}
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(response)
+
 }
 
 func (h *Handler) RechargeMachineHandler(w http.ResponseWriter, r *http.Request) {

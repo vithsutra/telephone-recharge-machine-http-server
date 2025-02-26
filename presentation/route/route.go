@@ -21,6 +21,10 @@ func Router(dbRepo repository.DataBaseRepository) *mux.Router {
 
 	router.Use(middleware.CorsMiddleWare)
 
+	tokenValidationMiddleware := middleware.NewTokenValidationMiddleware(dbRepo)
+
+	userRouter.Use(tokenValidationMiddleware.UserTokenValidater)
+
 	rootRouter.HandleFunc("/create/admin", adminHandler.CreateAdminHandler).Methods("POST")
 	rootRouter.HandleFunc("/delete/admin/{adminId}", adminHandler.DeleteAdminHandler).Methods("GET")
 
@@ -29,9 +33,10 @@ func Router(dbRepo repository.DataBaseRepository) *mux.Router {
 
 	adminRouter.HandleFunc("/create/user", adminHandler.CreateUserHandler).Methods("POST")
 	adminRouter.HandleFunc("/delete/user/{userId}", adminHandler.DeleteUserHandler).Methods("GET")
-	adminRouter.HandleFunc("/users", adminHandler.GetAllUsersHandler).Methods("GET")
+	adminRouter.HandleFunc("/users/{adminId}", adminHandler.GetAllUsersHandler).Methods("GET")
 	adminRouter.HandleFunc("/create/machine/{adminId}", adminHandler.CreatMachineHandler).Methods("POST")
 	adminRouter.HandleFunc("/machines/{adminId}", adminHandler.GetMachinesHandler).Methods("GET")
+	adminRouter.HandleFunc("/machine_ids/{adminId}", adminHandler.GetMachineIdsHandler).Methods("GET")
 	adminRouter.HandleFunc("/delete/machine/{machineId}", adminHandler.DeleteMachineHandler).Methods("GET")
 	adminRouter.HandleFunc("/recharge/machine/{machineId}", adminHandler.RechargeMachineHandler).Methods("POST")
 	adminRouter.HandleFunc("/recharge/history/{machineId}", adminHandler.GetRechargeHistoryHandler).Methods("GET")

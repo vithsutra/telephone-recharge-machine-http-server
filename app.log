@@ -1,1 +1,218 @@
 
+2025/02/26 16:52:32 connected to database
+2025/02/26 16:52:32 ERROR: type "varchat" does not exist (SQLSTATE 42704)
+2025/02/26 16:52:52 connected to database
+2025/02/26 16:52:53 ERROR: relation "machines" does not exist (SQLSTATE 42P01)
+2025/02/26 16:53:47 connected to database
+2025/02/26 16:53:47 database initialized successfully
+2025/02/26 16:53:47 server is running on 0.0.0.0:8080
+2025/02/26 16:54:04 connected to database
+2025/02/26 16:54:04 database initialized successfully
+2025/02/26 16:54:04 server is running on 0.0.0.0:8080
+2025/02/26 16:56:26 error occurred with database while creating the user, create user, Error -> ERROR: INSERT has more target columns than expressions (SQLSTATE 42601)
+2025/02/26 16:58:25 error occurred with database while creating the user, create user, Error -> ERROR: INSERT has more target columns than expressions (SQLSTATE 42601)
+2025/02/26 16:59:19 connected to database
+2025/02/26 16:59:19 database initialized successfully
+2025/02/26 16:59:19 server is running on 0.0.0.0:8080
+2025/02/26 17:00:50 connected to database
+2025/02/26 17:00:51 database initialized successfully
+2025/02/26 17:00:51 server is running on 0.0.0.0:8080
+2025/02/26 17:02:05 connected to database
+2025/02/26 17:02:06 database initialized successfully
+2025/02/26 17:02:06 server is running on 0.0.0.0:8080
+2025/02/26 17:05:28 connected to database
+2025/02/26 17:05:29 database initialized successfully
+2025/02/26 17:05:29 server is running on 0.0.0.0:8080
+2025/02/26 17:07:04 connected to database
+2025/02/26 17:07:04 database initialized successfully
+2025/02/26 17:07:04 server is running on 0.0.0.0:8080
+2025/02/26 17:07:11 connected to database
+2025/02/26 17:07:11 database initialized successfully
+2025/02/26 17:07:11 server is running on 0.0.0.0:8080
+2025/02/26 17:13:34 connected to database
+2025/02/26 17:13:34 database initialized successfully
+2025/02/26 17:13:34 server is running on 0.0.0.0:8080
+2025/02/26 17:14:19 http: panic serving 127.0.0.1:53496: runtime error: index out of range [1] with length 1
+goroutine 2 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xb0
+panic({0x100bbf940?, 0x14000034990?})
+	/usr/local/go/src/runtime/panic.go:785 +0x124
+github.com/Magowtham/telephone_recharge_machine_http_server/presentation/middleware.UserTokenValidater.func1({0x10?, 0x100b2ed60?}, 0x1?)
+	/Users/gowthamma/Documents/VithsutraCompany/VithsutraProjects/TelephoneProject/telephone_recharge_machine_http_server/presentation/middleware/user_token_validater.go:13 +0xe8
+net/http.HandlerFunc.ServeHTTP(0x100baf6c0?, {0x100bf66d8?, 0x140002de000?}, 0xc?)
+	/usr/local/go/src/net/http/server.go:2220 +0x38
+github.com/Magowtham/telephone_recharge_machine_http_server/presentation/middleware.CorsMiddleWare.func1({0x100bf66d8, 0x140002de000}, 0x140002bac80)
+	/Users/gowthamma/Documents/VithsutraCompany/VithsutraProjects/TelephoneProject/telephone_recharge_machine_http_server/presentation/middleware/cors.go:13 +0x460
+net/http.HandlerFunc.ServeHTTP(0x140002bab40?, {0x100bf66d8?, 0x140002de000?}, 0x100780a4c?)
+	/usr/local/go/src/net/http/server.go:2220 +0x38
+github.com/gorilla/mux.(*Router).ServeHTTP(0x14000284000, {0x100bf66d8, 0x140002de000}, 0x140002baa00)
+	/Users/gowthamma/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x194
+net/http.serverHandler.ServeHTTP({0x14000283cb0?}, {0x100bf66d8?, 0x140002de000?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0xbc
+net/http.(*conn).serve(0x1400029c6c0, {0x100bf79d8, 0x14000283bc0})
+	/usr/local/go/src/net/http/server.go:2092 +0x4fc
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x3dc
+2025/02/26 17:14:52 http: panic serving 127.0.0.1:53505: runtime error: index out of range [1] with length 1
+goroutine 4 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xb0
+panic({0x100bbf940?, 0x140000349d8?})
+	/usr/local/go/src/runtime/panic.go:785 +0x124
+github.com/Magowtham/telephone_recharge_machine_http_server/presentation/middleware.UserTokenValidater.func1({0x10?, 0x100b2ed60?}, 0x1?)
+	/Users/gowthamma/Documents/VithsutraCompany/VithsutraProjects/TelephoneProject/telephone_recharge_machine_http_server/presentation/middleware/user_token_validater.go:13 +0xe8
+net/http.HandlerFunc.ServeHTTP(0x100baf6c0?, {0x100bf66d8?, 0x140002de0e0?}, 0xc?)
+	/usr/local/go/src/net/http/server.go:2220 +0x38
+github.com/Magowtham/telephone_recharge_machine_http_server/presentation/middleware.CorsMiddleWare.func1({0x100bf66d8, 0x140002de0e0}, 0x140002bb040)
+	/Users/gowthamma/Documents/VithsutraCompany/VithsutraProjects/TelephoneProject/telephone_recharge_machine_http_server/presentation/middleware/cors.go:13 +0x460
+net/http.HandlerFunc.ServeHTTP(0x140002baf00?, {0x100bf66d8?, 0x140002de0e0?}, 0x100780a4c?)
+	/usr/local/go/src/net/http/server.go:2220 +0x38
+github.com/gorilla/mux.(*Router).ServeHTTP(0x14000284000, {0x100bf66d8, 0x140002de0e0}, 0x140002badc0)
+	/Users/gowthamma/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x194
+net/http.serverHandler.ServeHTTP({0x14000283f20?}, {0x100bf66d8?, 0x140002de0e0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0xbc
+net/http.(*conn).serve(0x1400029c870, {0x100bf79d8, 0x14000283bc0})
+	/usr/local/go/src/net/http/server.go:2092 +0x4fc
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x3dc
+2025/02/26 17:14:57 connected to database
+2025/02/26 17:14:58 database initialized successfully
+2025/02/26 17:14:58 server is running on 0.0.0.0:8080
+2025/02/26 18:42:50 connected to database
+2025/02/26 18:42:50 ERROR: syntax error at or near ")" (SQLSTATE 42601)
+2025/02/26 18:43:08 connected to database
+2025/02/26 18:43:09 database initialized successfully
+2025/02/26 18:43:09 server is running on 0.0.0.0:8080
+2025/02/26 18:47:48 connected to database
+2025/02/26 18:47:49 database initialized successfully
+2025/02/26 18:47:49 server is running on 0.0.0.0:8080
+2025/02/26 18:48:07 error occurred with database while creating the user, create user, Error -> ERROR: null value in column "admin_id" of relation "users" violates not-null constraint (SQLSTATE 23502)
+2025/02/26 18:48:29 error occurred with database while creating the user, create user, Error -> ERROR: null value in column "admin_id" of relation "users" violates not-null constraint (SQLSTATE 23502)
+2025/02/26 18:55:54 connected to database
+2025/02/26 18:55:55 database initialized successfully
+2025/02/26 18:55:55 server is running on 0.0.0.0:8080
+2025/02/26 19:06:00 connected to database
+2025/02/26 19:06:00 database initialized successfully
+2025/02/26 19:06:00 server is running on 0.0.0.0:8080
+2025/02/26 19:06:37 error occurred with database while getting all the users, get all users, Error -> sql: expected 3 destination arguments in Scan, not 2
+2025/02/26 19:07:20 connected to database
+2025/02/26 19:07:20 database initialized successfully
+2025/02/26 19:07:20 server is running on 0.0.0.0:8080
+2025/02/26 19:10:00 connected to database
+2025/02/26 19:10:00 database initialized successfully
+2025/02/26 19:10:00 server is running on 0.0.0.0:8080
+2025/02/26 19:16:30 connected to database
+2025/02/26 19:16:30 database initialized successfully
+2025/02/26 19:16:30 server is running on 0.0.0.0:8080
+2025/02/26 19:16:36 http: panic serving 127.0.0.1:54837: runtime error: index out of range [1] with length 1
+goroutine 2 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xb0
+panic({0x1010cf8a0?, 0x14000034a20?})
+	/usr/local/go/src/runtime/panic.go:785 +0x124
+github.com/Magowtham/telephone_recharge_machine_http_server/presentation/middleware.UserTokenValidater.func1({0x101106738, 0x140002d8000}, 0x1?)
+	/Users/gowthamma/Documents/VithsutraCompany/VithsutraProjects/TelephoneProject/telephone_recharge_machine_http_server/presentation/middleware/user_token_validater.go:36 +0x178
+net/http.HandlerFunc.ServeHTTP(0x1010bf6e0?, {0x101106738?, 0x140002d8000?}, 0xc?)
+	/usr/local/go/src/net/http/server.go:2220 +0x38
+github.com/Magowtham/telephone_recharge_machine_http_server/presentation/middleware.CorsMiddleWare.func1({0x101106738, 0x140002d8000}, 0x140002bcdc0)
+	/Users/gowthamma/Documents/VithsutraCompany/VithsutraProjects/TelephoneProject/telephone_recharge_machine_http_server/presentation/middleware/cors.go:13 +0x460
+net/http.HandlerFunc.ServeHTTP(0x140002bcc80?, {0x101106738?, 0x140002d8000?}, 0x100c90a4c?)
+	/usr/local/go/src/net/http/server.go:2220 +0x38
+github.com/gorilla/mux.(*Router).ServeHTTP(0x14000284000, {0x101106738, 0x140002d8000}, 0x140002bcb40)
+	/Users/gowthamma/go/pkg/mod/github.com/gorilla/mux@v1.8.1/mux.go:212 +0x194
+net/http.serverHandler.ServeHTTP({0x14000283d40?}, {0x101106738?, 0x140002d8000?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0xbc
+net/http.(*conn).serve(0x1400029c750, {0x101107a38, 0x14000283c50})
+	/usr/local/go/src/net/http/server.go:2092 +0x4fc
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x3dc
+2025/02/26 19:17:14 connected to database
+2025/02/26 19:17:15 database initialized successfully
+2025/02/26 19:17:15 server is running on 0.0.0.0:8080
+2025/02/26 19:38:42 connected to database
+2025/02/26 19:38:43 database initialized successfully
+2025/02/26 19:38:43 server is running on 0.0.0.0:8080
+2025/02/26 19:38:49 missing or empty env variable SECRETE_KEY
+2025/02/26 19:39:31 connected to database
+2025/02/26 19:39:31 database initialized successfully
+2025/02/26 19:39:31 server is running on 0.0.0.0:8080
+2025/02/26 19:39:34 missing or empty env variable SECRETE_KEY
+2025/02/26 19:41:06 connected to database
+2025/02/26 19:41:07 database initialized successfully
+2025/02/26 19:41:07 server is running on 0.0.0.0:8080
+2025/02/26 19:41:17 connected to database
+2025/02/26 19:41:18 database initialized successfully
+2025/02/26 19:41:18 server is running on 0.0.0.0:8080
+2025/02/26 19:41:25 error occurred while generating the jwt token,admin login,Error -> error occurred during signing the token
+2025/02/26 19:42:04 connected to database
+2025/02/26 19:42:05 database initialized successfully
+2025/02/26 19:42:05 server is running on 0.0.0.0:8080
+2025/02/26 19:42:07 error occurred during signing the token
+2025/02/26 19:42:07 error occurred while generating the jwt token,admin login,Error -> error occurred during signing the token
+2025/02/26 19:42:47 connected to database
+2025/02/26 19:42:47 database initialized successfully
+2025/02/26 19:42:47 server is running on 0.0.0.0:8080
+2025/02/26 19:43:14 connected to database
+2025/02/26 19:43:14 database initialized successfully
+2025/02/26 19:43:14 server is running on 0.0.0.0:8080
+2025/02/26 19:43:23 key is of invalid type
+2025/02/26 19:43:23 error occurred while generating the jwt token,admin login,Error -> key is of invalid type
+2025/02/26 19:43:49 connected to database
+2025/02/26 19:43:50 database initialized successfully
+2025/02/26 19:43:50 server is running on 0.0.0.0:8080
+2025/02/26 19:43:54 <nil>
+2025/02/26 19:46:59 connected to database
+2025/02/26 19:47:00 database initialized successfully
+2025/02/26 19:47:00 server is running on 0.0.0.0:8080
+2025/02/26 19:47:03 key is of invalid type
+2025/02/26 19:47:23 connected to database
+2025/02/26 19:47:24 database initialized successfully
+2025/02/26 19:47:24 server is running on 0.0.0.0:8080
+2025/02/26 19:47:28 invalid token
+2025/02/26 19:47:36 connected to database
+2025/02/26 19:47:37 database initialized successfully
+2025/02/26 19:47:37 server is running on 0.0.0.0:8080
+2025/02/26 19:47:48 invalid token
+2025/02/26 19:48:39 connected to database
+2025/02/26 19:48:39 database initialized successfully
+2025/02/26 19:48:39 server is running on 0.0.0.0:8080
+2025/02/26 19:48:49 <nil>
+2025/02/26 19:49:14 connected to database
+2025/02/26 19:49:14 database initialized successfully
+2025/02/26 19:49:14 server is running on 0.0.0.0:8080
+2025/02/26 19:51:26 connected to database
+2025/02/26 19:51:27 database initialized successfully
+2025/02/26 19:51:27 server is running on 0.0.0.0:8080
+2025/02/26 19:55:53 connected to database
+2025/02/26 19:55:54 database initialized successfully
+2025/02/26 19:55:54 server is running on 0.0.0.0:8080
+2025/02/26 20:04:07 connected to database
+2025/02/26 20:04:07 database initialized successfully
+2025/02/26 20:04:07 server is running on 0.0.0.0:8080
+2025/02/26 20:04:11 http: superfluous response.WriteHeader call from github.com/Magowtham/telephone_recharge_machine_http_server/presentation/middleware.(*tokenValidationMiddleware).UserTokenValidater-fm.(*tokenValidationMiddleware).UserTokenValidater.func1 (user_token_validater.go:91)
+2025/02/26 20:04:14 http: superfluous response.WriteHeader call from github.com/Magowtham/telephone_recharge_machine_http_server/presentation/middleware.(*tokenValidationMiddleware).UserTokenValidater-fm.(*tokenValidationMiddleware).UserTokenValidater.func1 (user_token_validater.go:91)
+2025/02/26 20:06:03 connected to database
+2025/02/26 20:06:04 database initialized successfully
+2025/02/26 20:06:04 server is running on 0.0.0.0:8080
+2025/02/26 20:06:31 connected to database
+2025/02/26 20:06:31 database initialized successfully
+2025/02/26 20:06:31 server is running on 0.0.0.0:8080
+2025/02/26 20:06:35 
+2025/02/26 20:06:52 connected to database
+2025/02/26 20:06:52 database initialized successfully
+2025/02/26 20:06:52 server is running on 0.0.0.0:8080
+2025/02/26 20:06:54 e3e649ad-13b5-4afe-8080-44bed5923d28
+2025/02/26 20:07:02 connected to database
+2025/02/26 20:07:03 database initialized successfully
+2025/02/26 20:07:03 server is running on 0.0.0.0:8080
+2025/02/26 20:11:30 connected to database
+2025/02/26 20:11:30 database initialized successfully
+2025/02/26 20:11:30 server is running on 0.0.0.0:8080
+2025/02/26 20:13:22 connected to database
+2025/02/26 20:13:23 database initialized successfully
+2025/02/26 20:13:23 server is running on 0.0.0.0:8080
+2025/02/26 20:16:40 <nil>
+2025/02/26 20:25:05 connected to database
+2025/02/26 20:25:05 database initialized successfully
+2025/02/26 20:25:05 server is running on 0.0.0.0:8080

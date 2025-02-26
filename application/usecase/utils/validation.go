@@ -1,7 +1,8 @@
-package validation
+package utils
 
 import (
 	"fmt"
+	"regexp"
 	"unicode"
 )
 
@@ -41,4 +42,15 @@ func ValidatePassword(password string) error {
 	} else {
 		return nil
 	}
+}
+
+func ValidateEmail(email string) error {
+	regex := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
+	re := regexp.MustCompile(regex)
+
+	if !re.MatchString(email) {
+		return fmt.Errorf("invalid email format")
+	}
+
+	return nil
 }

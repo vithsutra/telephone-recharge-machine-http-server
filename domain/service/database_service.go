@@ -15,10 +15,6 @@ func NewDataBaseService(repo repository.DataBaseRepository) *DataBaseService {
 	}
 }
 
-func (s *DataBaseService) InitializeDataBase() error {
-	return s.repo.Init()
-}
-
 func (s *DataBaseService) CheckAdminNameExists(adminName string) (bool, error) {
 	return s.repo.CheckAdminNameExists(adminName)
 }
@@ -59,8 +55,8 @@ func (s *DataBaseService) GetUserByUserName(userName string) (*entity.User, erro
 	return s.repo.GetUserByUserName(userName)
 }
 
-func (s *DataBaseService) GetAllUsers() ([]*entity.User, error) {
-	return s.repo.GetAllUsers()
+func (s *DataBaseService) GetAllUsers(adminId string) ([]*entity.User, error) {
+	return s.repo.GetAllUsers(adminId)
 }
 
 func (s *DataBaseService) CheckMachineIdExists(machineId string) (bool, error) {
@@ -77,6 +73,10 @@ func (s *DataBaseService) DeleteMachine(machineId string) error {
 
 func (s *DataBaseService) GetMachinesByAdminId(adminId string) ([]*entity.Machine, error) {
 	return s.repo.GetMachinesByAdminId(adminId)
+}
+
+func (s *DataBaseService) GetMachineIdsByAdminId(adminId string) ([]string, error) {
+	return s.repo.GetMachineIdsByAdminId(adminId)
 }
 
 func (s *DataBaseService) RechargeMachine(machineId string, amount int32) error {

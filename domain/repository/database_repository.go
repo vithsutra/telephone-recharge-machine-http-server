@@ -3,7 +3,6 @@ package repository
 import "github.com/Magowtham/telephone_recharge_machine_http_server/domain/entity"
 
 type DataBaseRepository interface {
-	Init() error
 	CheckAdminNameExists(adminName string) (bool, error)
 	CreateAdmin(admin *entity.Admin) error
 	GetAdminByAdminName(adminName string) (*entity.Admin, error)
@@ -14,11 +13,12 @@ type DataBaseRepository interface {
 	CheckUserIdExists(userId string) (bool, error)
 	DeleteUser(userId string) error
 	GetUserByUserName(userName string) (*entity.User, error)
-	GetAllUsers() ([]*entity.User, error)
+	GetAllUsers(adminId string) ([]*entity.User, error)
 	CheckMachineIdExists(machineId string) (bool, error)
 	CreateMachine(machine *entity.Machine) error
 	DeleteMachine(machineId string) error
 	GetMachinesByAdminId(adminId string) ([]*entity.Machine, error)
+	GetMachineIdsByAdminId(adminId string) ([]string, error)
 	RechargeMachine(machineId string, amount int32) error
 	GetRechargeHistoryByMachineId(machineId string) ([]*entity.RechargeHistory, error)
 	GetMachineBalance(machineId string) (int32, error)
