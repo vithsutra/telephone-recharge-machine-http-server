@@ -216,3 +216,7 @@ created by net/http.(*Server).Serve in goroutine 1
 2025/02/26 20:25:05 connected to database
 2025/02/26 20:25:05 database initialized successfully
 2025/02/26 20:25:05 server is running on 0.0.0.0:8080
+2025/02/26 20:44:03 connected to database
+2025/02/26 20:44:03 database initialized successfully
+2025/02/26 20:44:03 server is running on 0.0.0.0:8080
+2025/02/26 20:44:14 <nil>
