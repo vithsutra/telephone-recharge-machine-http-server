@@ -28,8 +28,9 @@ func init() {
 
 func main() {
 
-	//intializing the logger file
 	initLogger()
+
+	//intializing the logger file
 
 	infrastructure.Run()
 }
