@@ -70,5 +70,6 @@ jobs:
             docker ps -a | grep telephone-recharge-backend | awk '{print $1}' | xargs -I  {} docker rm {}
             mkdir -p ~/recharge-app/logs
 
-            docker run -d -p 8082:8080 --name telephone-recharge-backend --env-file ~/recharge-app/recharge-app-deployment/.env  -v ~/recharge-app/logs:/app/logs $IMAGE_NAME
+            docker run -d -p 8082:8080 --name telephone-recharge-backend --env-file ~/recharge-app/recharge-app-deployment/.env  -v $(pwd)/logs:/app/logs $IMAGE_NAME
             
+
