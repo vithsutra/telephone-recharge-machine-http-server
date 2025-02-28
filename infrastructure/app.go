@@ -27,7 +27,7 @@ func Run() {
 
 	postgresRepository := repository.NewPostgresRepository(databaseConn)
 
-	//initializing the database
+	//initializing process of the database
 
 	if err := postgresRepository.Init(); err != nil {
 		log.Fatalln(err)
