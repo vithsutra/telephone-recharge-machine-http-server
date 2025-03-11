@@ -1,0 +1,72 @@
+name: telephone deployment cicd pipeline
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  build:
+    name: build server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: authentication with dockerHub
+        run: echo "${{secrets.DOCKERHUB_PASSWORD}}"| docker login -u "${{secrets.DOCKERHUB_USERNAME}}" --password-stdin
+
+      - name: build and push docker image
+        run: |
+          IMAGE_NAME=docker.io/vithsutratechnologies/telephone-recharge-backend_test:latest
+          docker build -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
+
+  deploy:
+    name: deploy docker-image to GCE
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: create .env file
+        run: |
+          echo "TEST_DATABASE_URL=${{secrets.TEST_DATABASE_URL}}" >> .env
+          echo "SERVER_ADDRESS=${{secrets.SERVER_ADDRESS}}" >> .env
+          echo "SERVER_MODE=${{secrets.SERVER_MODE}}" >> .env
+          echo "SECRETE_KEY=${{secrets.SECRETE_KEY}}" >> .env
+          echo "ROOT_PASSWORD"=${{secrets.ROOT_PASSWORD}} >> .env
+          echo "SMTP_HOST"=${{secrets.SMTP_HOST}} >> .env
+          echo "SMTP_PORT=${{secrets.SMTP_PORT}}" >> .env
+          echo "HOST_EMAIL=${{secrets.HOST_EMAIL}}" >> .env
+          echo "APP_PASSWORD=${{secrets.APP_PASSWORD}}" >> .env
+
+      - name: setup deployment in GCE
+        uses: appleboy/ssh-action@v0.1.10
+        with: 
+          host: "${{secrets.TEST_GCP_INSTANCE_HOST}}"
+          username: "${{secrets.TEST_GCP_INSTANCE_USERNAME}}"
+          key: "${{secrets.TEST_GCP_SSH_KEY}}"
+          script: |
+            echo "connected to vm"
+            mkdir -p ~/recharge-app/recharge-app-deployment
+      - name: upload .env to vm
+        run: |
+          echo "${{secrets.TEST_GCP_SSH_KEY}}" > biometric_ssh_key
+          chmod 600 biometric_ssh_key
+          scp -o StrictHostKeyChecking=no -i biometric_ssh_key .env ${{ secrets.TEST_GCP_INSTANCE_USERNAME }}@${{ secrets.TEST_GCP_INSTANCE_HOST }}:~/recharge-app/recharge-app-deployment/.env
+          rm biometric_ssh_key
+
+      - name: deploy docker image into GCE
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+           host: "${{ secrets.TEST_GCP_INSTANCE_HOST }}"
+           username: "${{ secrets.TEST_GCP_INSTANCE_USERNAME }}"
+           key: "${{ secrets.TEST_GCP_SSH_KEY }}"
+           script: |
+            IMAGE_NAME=docker.io/vithsutratechnologies/telephone-recharge-backend_test:latest
+            docker pull $IMAGE_NAME
+            docker ps | grep telephone-recharge-backend_test | awk '{print $1}' | xargs -I {} docker kill {}
+            docker ps -a | grep telephone-recharge-backend_test | awk '{print $1}' | xargs -I  {} docker rm {}
+            docker run -d -p 8082:8080 --name telephone-recharge-backend_test --env-file ~/recharge-app/recharge-app-deployment/.env $IMAGE_NAME
+            
