@@ -19,10 +19,10 @@ func CreateJwtToken(userId string, machineId string, userName string) (string, e
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	secretKey := os.Getenv("SECRET_KEY")
+	secretKey := os.Getenv("SECRETE_KEY")
 
 	if secretKey == "" {
-		return "", fmt.Errorf("SECRET_KEY env not found")
+		return "", fmt.Errorf("SECRETE_KEY env not found")
 	}
 
 	signedToken, err := token.SignedString([]byte(secretKey))
@@ -40,10 +40,10 @@ func DecodeJwtToken(tokenString string) (jwt.MapClaims, error) {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 
-		secretKey := os.Getenv("SECRET_KEY")
+		secretKey := os.Getenv("SECRETE_KEY")
 
 		if secretKey == "" {
-			return nil, fmt.Errorf("SECRET_KEY env not found")
+			return nil, fmt.Errorf("SECRETE_KEY env not found")
 		}
 
 		return []byte(secretKey), nil
