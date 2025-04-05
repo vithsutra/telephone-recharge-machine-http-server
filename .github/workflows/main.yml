@@ -41,32 +41,32 @@ jobs:
           echo "HOST_EMAIL=${{secrets.HOST_EMAIL}}" >> .env
           echo "APP_PASSWORD=${{secrets.APP_PASSWORD}}" >> .env
 
-      - name: setup deployment in GCE
+      - name: setup deployment in cloud
         uses: appleboy/ssh-action@v0.1.10
         with: 
-          host: "${{secrets.GCP_INSTANCE_HOST}}"
-          username: "${{secrets.GCP_INSTANCE_USERNAME}}"
-          key: "${{secrets.GCP_SSH_KEY}}"
+          host: "${{secrets.CLOUD_INSTANCE_HOST}}"
+          username: "${{secrets.CLOUD_INSTANCE_USERNAME}}"
+          key: "${{secrets.CLOUD_INSTANCE_SSH_KEY}}"
           script: |
             echo "connected to vm"
             mkdir -p ~/recharge-app/recharge-app-deployment
       - name: upload .env to vm
         run: |
-          echo "${{secrets.GCP_SSH_KEY}}" > biometric_ssh_key
-          chmod 600 biometric_ssh_key
-          scp -o StrictHostKeyChecking=no -i biometric_ssh_key .env ${{ secrets.GCP_INSTANCE_USERNAME }}@${{ secrets.GCP_INSTANCE_HOST }}:~/recharge-app/recharge-app-deployment/.env
-          rm biometric_ssh_key
+          echo "${{secrets.CLOUD_INSTANCE_SSH_KEY}}" > ssh_key
+          chmod 600 ssh_key
+          scp -o StrictHostKeyChecking=no -i ssh_key .env ${{ secrets.CLOUD_INSTANCE_USERNAME }}@${{ secrets.CLOUD_INSTANCE_HOST }}:~/recharge-app/recharge-app-deployment/.env
 
       - name: deploy docker image into GCE
         uses: appleboy/ssh-action@v0.1.10
         with:
-           host: "${{ secrets.GCP_INSTANCE_HOST }}"
-           username: "${{ secrets.GCP_INSTANCE_USERNAME }}"
-           key: "${{ secrets.GCP_SSH_KEY }}"
+           host: "${{ secrets.CLOUD_INSTANCE_HOST }}"
+           username: "${{ secrets.CLOUD_INSTANCE_USERNAME }}"
+           key: "${{ secrets.CLOUD_INSTANCE_SSH_KEY }}"
            script: |
             IMAGE_NAME=docker.io/vithsutratechnologies/telephone-recharge-backend:latest
             docker pull $IMAGE_NAME
+            docker images | grep "<none>" | awk '{print $3}' | xargs -r docker rmi -f
             docker ps | grep telephone-recharge-backend | awk '{print $1}' | xargs -I {} docker kill {}
             docker ps -a | grep telephone-recharge-backend | awk '{print $1}' | xargs -I  {} docker rm {}
-            docker run -d -p 8082:8080 --name telephone-recharge-backend --env-file ~/recharge-app/recharge-app-deployment/.env $IMAGE_NAME
+            docker run -d -p 8080:8080 --name telephone-recharge-backend --env-file ~/recharge-app/recharge-app-deployment/.env $IMAGE_NAME
             
