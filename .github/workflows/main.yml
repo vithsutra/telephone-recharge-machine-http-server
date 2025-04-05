@@ -24,7 +24,7 @@ jobs:
           docker push $IMAGE_NAME
 
   deploy:
-    name: deploy docker-image to GCE
+    name: deploy docker-image to Cloud
     runs-on: ubuntu-latest
     needs: build
 
