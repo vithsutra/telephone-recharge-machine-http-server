@@ -20,6 +20,7 @@ func (repo *PostgresRepository) Init() error {
 	query1 := `CREATE TABLE IF NOT EXISTS admins(
 				admin_id VARCHAR(255) PRIMARY KEY,
 				admin_name VARCHAR(255) NOT NULL UNIQUE,
+				email VARCHAR(255) NOT NULL UNIQUE,
 				password VARCHAR(255) NOT NULL,
 				created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 			)`

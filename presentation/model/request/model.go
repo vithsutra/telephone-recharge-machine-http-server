@@ -2,6 +2,7 @@ package request
 
 type CreateAdminRequest struct {
 	AdminName string `json:"admin_name"`
+	Email     string `json:"email"`
 	Password  string `json:"password"`
 }
 
