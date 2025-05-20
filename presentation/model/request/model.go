@@ -13,7 +13,6 @@ type CreateUserRequest struct {
 	Password  string `json:"password"`
 	Email     string `json:"email"`
 }
-
 type AdminLoginRequest struct {
 	AdminName string `json:"admin_name"`
 	Password  string `json:"password"`
