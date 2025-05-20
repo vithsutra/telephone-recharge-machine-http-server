@@ -1,6 +1,8 @@
 package route
 
 import (
+	"net/http"
+
 	"github.com/Magowtham/telephone_recharge_machine_http_server/domain/repository"
 	"github.com/Magowtham/telephone_recharge_machine_http_server/presentation/handler/admin"
 	"github.com/Magowtham/telephone_recharge_machine_http_server/presentation/handler/user"
@@ -13,13 +15,11 @@ func Router(dbRepo repository.DataBaseRepository) *mux.Router {
 	userHandler := user.NewHandler(dbRepo)
 
 	router := mux.NewRouter()
-
+	router.Use(middleware.CorsMiddleWare)
 	rootRouter := router.PathPrefix("/root").Subrouter()
 	loginRouter := router.PathPrefix("/login").Subrouter()
 	adminRouter := router.PathPrefix("/admin").Subrouter()
 	userRouter := router.PathPrefix("/user").Subrouter()
-
-	router.Use(middleware.CorsMiddleWare)
 
 	tokenValidationMiddleware := middleware.NewTokenValidationMiddleware(dbRepo)
 
@@ -45,6 +45,9 @@ func Router(dbRepo repository.DataBaseRepository) *mux.Router {
 	userRouter.HandleFunc("/machine/balance/{machineId}", userHandler.GetMachineBalanceHandler).Methods("GET")
 	userRouter.HandleFunc("/deduct/machine/balance/{machineId}", userHandler.DeductMachineBalanceHandler).Methods("POST")
 	userRouter.HandleFunc("/expense/history/{machineId}", userHandler.GetMachineExpenseHistoryHandler).Methods("GET")
+	router.Methods("OPTIONS").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	})
 
 	return router
 }
