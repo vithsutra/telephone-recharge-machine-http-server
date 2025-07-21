@@ -6,7 +6,7 @@ func CorsMiddleWare(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		origin := r.Header.Get("Origin")
 
-		if origin == "http://localhost:3000" || origin == "http://localhost:3001" || origin == "https://telephone.admin.vsensetech.in" || origin == "https://telephone-recharge-machine-admin-panel-a39q.vercel.app" || origin == "https://telephone.admin.vithsutra.com"   {
+		if origin == "http://localhost:3000" || origin == "http://localhost:3001" || origin == "https://telephone.admin.vsensetech.in" || origin == "https://telephone-recharge-machine-admin-panel-a39q.vercel.app" || origin == "https://telephone.admin.vithsutra.com" || origin == "https://alvas-telephone.vercel.app"   {
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 			w.Header().Set("Access-Control-Allow-Credentials", "true")
 		}
